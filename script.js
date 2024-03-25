@@ -88,9 +88,26 @@ const LearnerSubmissions = [
 // };
 
 // Also an IF ELSE statment for if they have taken all 3 assignments
-// Boolean andet variable.
+
+// Boolean and  my let variable. if they have assignment_id: 2, done.
 let isTrue = true;
 let isFalse = false;
+
+// my while loop go over submitted_at
+
+// let i = 0;
+// while (i < submitted_at.length) {
+//   console.log(submitted_at[i]);
+//   i++;
+// }
+
+
+// my for loop
+// for (let i = 0; i < 5; i++) {
+//   console.log('inloop:', i);
+// }
+
+
 
 function getLearnerData(course, ag, submissions) {
   //   const sum = function (a, b) {
