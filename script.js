@@ -78,41 +78,34 @@ const LearnerSubmissions = [
   },
 ];
 
-// have to grab keys from object 1st if else statment
-// const passOrFail = function (submissions, obj) {
-//   if (score < 30) {
-//     return "Pass";
-//   } else {
-//     return "Fail";
-//   }
-// };
-
-// Also an IF ELSE statment for if they have taken all 3 assignments
-
-// Boolean and  my let variable. if they have assignment_id: 2, done.
-let isTrue = true;
-let isFalse = false;
-
-// my while loop go over submitted_at
-
-// let i = 0;
-// while (i < submitted_at.length) {
-//   console.log(submitted_at[i]);
-//   i++;
-// }
-
-
-// my for loop
-// for (let i = 0; i < 5; i++) {
-//   console.log('inloop:', i);
-// }
-
-
-
 function getLearnerData(course, ag, submissions) {
-  //   const sum = function (a, b) {
-  //     return a + b;
-  //   };
+    let learnerArr = [];
+    let learnerAverages = [];
+    //loop through the learn submissons and get the id and start building the array that contains objects.
+    submissions.forEach((learnerObj) => {
+        if (!learnerArr.includes(learnerObj.learner_id)) {
+            learnerAverages.push({ "id": learnerObj.learner_id });
+            learnerArr.push(learnerObj.learner_id);
+        }
+        // as looping through ag.assignments
+        //if (learnerObj.assignment_id == ag.assignemnts.id)
+    });
+    console.log(learnerArr);
+    console.log(learnerAverages);
+
+    //  from  learner_id grab assign_id and find assign id in assi group and then get weighted average
+    
+    
+    //  also grab due date test againist  my current date
+   
+    // can be one big function
+    // grab due date and  if ! 
+
+
+    //get learned total
+    //get weight average
+    
+
 
   // here, we would process this data to achieve the desired result.
   const result = [
@@ -137,5 +130,5 @@ function getLearnerData(course, ag, submissions) {
 
 const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 // first if else statment: const result2 = passOrFail();
-console.log(result);
+//console.log(result);
 // first if else statment: console.log(result2);
