@@ -1,11 +1,9 @@
 console.log("Hello CodeSandbox");
-
 // The provided course information.
 const CourseInfo = {
   id: 451,
   name: "Introduction to JavaScript",
 };
-
 // The provided assignment group.
 const AssignmentGroup = {
   id: 12345,
@@ -33,7 +31,6 @@ const AssignmentGroup = {
     },
   ],
 };
-
 // The provided learner submission data.
 const LearnerSubmissions = [
   {
@@ -72,40 +69,66 @@ const LearnerSubmissions = [
     learner_id: 132,
     assignment_id: 2,
     submission: {
+      // 2023-02-27
       submitted_at: "2023-03-07",
       score: 140,
     },
   },
 ];
-
 function getLearnerData(course, ag, submissions) {
-    let learnerArr = [];
-    let learnerAverages = [];
+  let learners = [];
+  // let assignmentID = AssignmentGroup ['assignment_id']
+  // let points_possible =
     //loop through the learn submissons and get the id and start building the array that contains objects.
+
+  //approach on
     submissions.forEach((learnerObj) => {
-        if (!learnerArr.includes(learnerObj.learner_id)) {
-            learnerAverages.push({ "id": learnerObj.learner_id });
-            learnerArr.push(learnerObj.learner_id);
+          let assignment_id = learnerObj.assignment_id
+          let score = learnerObj.submission.score
+          let found;
+            for (const iterator of AssignmentGroup['assignments']) {
+              if (iterator.id === assignment_id) found = iterator
+            }  
+
+      //find when assignment is late
+      let dueDate = Date.parse(found.due_at)
+      let submissionDate =Date.parse( learnerObj.submission.submitted_at)
+      console.log("************")
+      // when the submission date is newer than the duedate it is late
+      if(submissionDate>dueDate){
+        console.log('late',learnerObj.submission.submitted_at,found.due_at)
+        // deduct 10 percent of the total points
+        score = (score- found.points_possible*0.1)/found.points_possible 
+
+        //if submission date is older than due date do not count 
+      }else if (submissionDate<dueDate){
+        console.log("do not count ",learnerObj.submission.submitted_at,found.due_at)
+      }
+      else{
+        console.log("right time",learnerObj.submission.submitted_at,found.due_at)
+        score = score/found.points_possible
+      }
+
+      //
+           
+
+      
+        if (!learners.find((item)=>item.id ===learnerObj.learner_id)) {
+          let obj ={ 
+            "id": learnerObj.learner_id,
+              [assignment_id]:score
+          }
+            learners.push(obj);
+        }else{
+          for (let i =0 ; i<learners.length;i++){
+           if(learners[i].id === learnerObj.learner_id){
+             learners[i][assignment_id] = score
+           }
+          }
         }
-        // as looping through ag.assignments
-        //if (learnerObj.assignment_id == ag.assignemnts.id)
+
     });
-    console.log(learnerArr);
-    console.log(learnerAverages);
-
-    //  from  learner_id grab assign_id and find assign id in assi group and then get weighted average
-    
-    
-    //  also grab due date test againist  my current date
-   
-    // can be one big function
-    // grab due date and  if ! 
-
-
-    //get learned total
-    //get weight average
-    
-
+    console.log(learners);
 
   // here, we would process this data to achieve the desired result.
   const result = [
@@ -122,12 +145,9 @@ function getLearnerData(course, ag, submissions) {
       2: 0.833, // late: (140 - 15) / 150
     },
   ];
-
   return result;
 }
-
 // console.log(1 + 2);
-
 const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 // first if else statment: const result2 = passOrFail();
 //console.log(result);
