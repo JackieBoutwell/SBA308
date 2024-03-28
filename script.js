@@ -97,6 +97,11 @@ function getLearnerData(course, ag, submissions) {
       let submissionDate = Date.parse(learnerObj.submission.submitted_at)
       console.log("************")
       // when the submission date is newer than the duedate it is late
+
+      // boolean
+      const value = Boolean(submissionDate > dueDate);
+      console.log(value);
+
       if (submissionDate > dueDate) {
         console.log('late', learnerObj.submission.submitted_at, found.due_at)
         // deduct 10 percent of the total points
