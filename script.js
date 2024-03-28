@@ -77,10 +77,12 @@ const LearnerSubmissions = [
 ];
 function getLearnerData(course, ag, submissions) {
   try {  //this is my try/catch!
-    let learners = [];
-    // let assignmentID = AssignmentGroup ['assignment_id']
-    // let points_possible =
-    //loop through the learn submissons and get the id and start building the array that contains objects.
+    let learners = []; //created an array.
+      // let learnerAverages = [];
+  // let assignmentID = AssignmentGroup ['assignment_id']
+  // let points_possible =
+    //loop through the learn submissons and get the id and start building the array 
+    // that contains objects.
 
     //approach on
     submissions.forEach((learnerObj) => {
@@ -91,6 +93,16 @@ function getLearnerData(course, ag, submissions) {
       for (const iterator of AssignmentGroup['assignments']) {
         if (iterator.id === assignment_id) found = iterator
       }
+
+    //   if (!learnerArr.includes(learnerObj.learner_id)) {
+    //         learnerAverages.push({ "id": learnerObj.learner_id });
+    //         learnerArr.push(learnerObj.learner_id);
+    //     }
+    //     // as looping through ag.assignments
+    //     //if (learnerObj.assignment_id == ag.assignemnts.id)
+      // });
+    //   console.log(learnerArr);
+    // console.log(learnerAverages);
 
       //find when assignment is late
       let dueDate = Date.parse(found.due_at)
@@ -153,6 +165,20 @@ function getLearnerData(course, ag, submissions) {
 
 // console.log(1 + 2);
 const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
+
+//  THESE ARE MY BLOCKERS!!!!
+
+// the instructions for this project was hard for me to grasp..
+// started project down the wrong path with a pass or fail boolean...
+// example below...
+
 // first if else statment: const result2 = passOrFail();
 //console.log(result);
 // first if else statment: console.log(result2);
+
+//  Line 81  is commented out b/c i tried to make another array.
+//  did not need two arrays..
+
+// Line 97 is commented out.
+// Did a different way of doing an if statement.
+// worked through it and did a simpler easier to read(for me at least) if statement.
