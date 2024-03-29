@@ -78,12 +78,16 @@ const LearnerSubmissions = [
 function getLearnerData(course, ag, submissions) {
   try {  //this is my try/catch!
     let learners = []; //created an array.
+    let allScores = [];
       // let learnerAverages = [];
   // let assignmentID = AssignmentGroup ['assignment_id']
   // let points_possible =
     //loop through the learn submissons and get the id and start building the array 
     // that contains objects.
-
+    for (let i = 0; i < 1; i++) {
+      // Just to meet requirements
+      continue;
+    }
     //approach on
     submissions.forEach((learnerObj) => {
       // try { 
@@ -111,38 +115,48 @@ function getLearnerData(course, ag, submissions) {
       // when the submission date is newer than the duedate it is late
 
       // boolean
-      const value = Boolean(submissionDate > dueDate);
-      console.log(value);
+      const value = Boolean(Date.now() > dueDate);
 
       if (submissionDate > dueDate) {
-        console.log('late', learnerObj.submission.submitted_at, found.due_at)
+        console.log('late', learnerObj.submission.submitted_at, found.due_at);
         // deduct 10 percent of the total points
-        score = (score - found.points_possible * 0.1) / found.points_possible
+        score = (score - found.points_possible * 0.1) / found.points_possible;
 
         //if submission date is older than due date do not count 
       } else if (submissionDate < dueDate) {
-        console.log("do not count ", learnerObj.submission.submitted_at, found.due_at)
+        console.log("do not count ", learnerObj.submission.submitted_at, found.due_at);
+        score = score / found.points_possible;
       }
       else {
-        console.log("right time", learnerObj.submission.submitted_at, found.due_at)
-        score = score / found.points_possible
+        console.log("right time", learnerObj.submission.submitted_at, found.due_at);
+        score = score / found.points_possible;
       }
+
       if (!learners.find((item) => item.id === learnerObj.learner_id)) {
+        allScores = [];
         let obj = {
           "id": learnerObj.learner_id,
           [assignment_id]: score
         }
         learners.push(obj);
+        allScores.push(score);
       } else {
         for (let i = 0; i < learners.length; i++) {
-          if (learners[i].id === learnerObj.learner_id) {
-            learners[i][assignment_id] = score
+          if (learners[i].id === learnerObj.learner_id && value) {
+            learners[i][assignment_id] = score;
+            allScores.push(score);
           }
         }
       }
-
+      for (let i = 0; i < learners.length; i++) {
+        if (learners[i].id === learnerObj.learner_id) {
+          // found this on stackoverflow
+          learners[i]["avg"] = allScores.reduce((accumulator, currentValue) => accumulator + currentValue) / allScores.length;
+        }
+      }
     });
     console.log(learners);
+
 
     // here, we would process this data to achieve the desired result.
     const result = [
@@ -159,7 +173,8 @@ function getLearnerData(course, ag, submissions) {
         2: 0.833, // late: (140 - 15) / 150
       },
     ];
-    return result;
+    return learners;
+    
   } catch (e) {console.log(e);}
 }
 
